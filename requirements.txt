@@ -1,0 +1,11 @@
+numpy
+scipy
+PyYAML
+pandas
+wandb
+scikit-learn
+networkx
+tqdm
+fairseq
+matplotlib
+seaborn

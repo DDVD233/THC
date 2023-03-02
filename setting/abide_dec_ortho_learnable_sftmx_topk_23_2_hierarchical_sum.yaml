@@ -1,0 +1,54 @@
+data:
+  dataset: ABIDE
+  batch_size: 32
+  test_batch_size: 32
+  val_batch_size: 32
+  train_set: 0.7
+  val_set: 0.1
+  time_seires: datasets/ABIDE/abide.npy
+
+
+
+model:
+  # seq, gnn, fbnetgen
+  type: dec_transformer
+  sizes: [23, 2]  # Note: The input node size should not be included here
+  pooling: [true, true]
+  pos_encoding: none  # identity, none
+  orthogonal: true
+  freeze_center: false
+  project_assignment: true
+  hierarchical: true
+  readout: concat
+  att_noise: false
+  clustering_type: learnable
+  mask_top_k: true
+  readout_hidden_size: 256
+  feature_reduction_dim: 16
+  encoder_hidden_size: 512
+  transformer_hidden_size: 4096
+
+
+
+
+train:
+  # normal or bilevel
+  method: normal
+  lr: 1e-4
+  weight_decay: 1e-5
+  epochs: 200
+  optimizer: adam
+
+  group_loss: false
+  sparsity_loss: false
+  diff_loss: false
+  dominate_loss: false
+  kl_loss: false
+  dominate_loss_weight: 1.0e-4
+  sparsity_loss_weight: 1.0e-4
+  dominate_softmax: true
+  log_folder: result
+  topk: 3
+  
+  # uniform or pearson
+  pure_gnn_graph: pearson

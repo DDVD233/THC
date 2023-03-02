@@ -1,0 +1,54 @@
+data:
+  dataset: ABCD
+  batch_size: 32
+  test_batch_size: 32
+  val_batch_size: 32
+  train_set: 0.7
+  val_set: 0.1
+  node_feature: datasets/ABCD/abcd_rest-pearson-HCP2016.npy
+  time_seires: datasets/ABCD/abcd_rest-timeseires-HCP2016.npy
+  node_id: datasets/ABCD/ids_HCP2016.txt
+  seires_id: datasets/ABCD/ids_HCP2016_timeseires.txt
+  label: datasets/ABCD/id2sex.txt
+
+
+
+
+# This is the original model setting, should yield ~0.95 AUC on ABCD dataset
+model:
+  # seq, gnn, fbnetgen 
+  type: dec_transformer
+  sizes: [18, 8]  # Note: The input node size should not be included here
+  pooling: [true, true]
+  pos_encoding: none  # identity, none
+  orthogonal: true
+  freeze_center: false
+  project_assignment: true
+  hierarchical: true
+  readout: sum
+  att_noise: true
+  clustering_type: learnable
+  mask_top_k: true
+
+train:
+  # normal or bilevel 
+  method: normal
+  lr: 1.0e-4
+  weight_decay: 1.0e-5
+  epochs: 200
+  optimizer: adam
+
+  group_loss: false
+  sparsity_loss: false
+  diff_loss: false
+  dominate_loss: false
+  clustering_loss: true
+  dominate_loss_weight: 1.0e-4
+  sparsity_loss_weight: 1.0e-4
+  dominate_softmax: true
+  log_folder: result
+  assignment_loss: true
+  topk: 3
+  
+  # uniform or pearson
+  pure_gnn_graph: pearson
