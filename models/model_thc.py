@@ -3,7 +3,6 @@ import torch.nn as nn
 
 from .components.readout import DecReadout
 from .components.transformer_encoder import TransPoolingEncoder
-from .components.diff_encoder import TransformerWithDiffPoolLayer
 
 
 class THC(nn.Module):
